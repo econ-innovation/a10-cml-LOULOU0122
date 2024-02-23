@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# 配置文件（msmtprc）
+echo "
+account default
+host smtp.163.com
+port 465
+from louying1999@163.com
+auth on
+user louying1999@163.com
+password *******
+tls on
+tls_starttls on
+tls_certcheck off
+" > ~/.msmtprc
+
+# 读取配置文件
+source ~/.msmtprc
+
+# 设置收件人邮箱地址
+send_email="idealab2022@163.com"
+
+# 设置邮件主题
+mail_subject="Try msmtp to send Email"
+
+# 邮件内容
+body="Hello,
+
+This is assignment10,
+
+This is a test email sent using msmtp.
+"
+
+# 发送邮件
+echo -e "Subject: $mail_subject\n$body" | msmtp --file=~/.msmtprc "$send_email"
